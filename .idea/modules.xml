@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/nexus-exercices.iml" filepath="$PROJECT_DIR$/.idea/nexus-exercices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/team2/team2.iml" filepath="$PROJECT_DIR$/team2/team2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/team4/team4.iml" filepath="$PROJECT_DIR$/team4/team4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
+    </modules>
+  </component>
+</project>
