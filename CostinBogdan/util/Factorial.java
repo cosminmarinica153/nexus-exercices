@@ -1,3 +1,5 @@
+package util;
+
 import java.util.Scanner;
 
 public class Factorial {
@@ -8,7 +10,7 @@ public class Factorial {
         scanner.close();
 
         if (number < 0) {
-            System.out.println("Factorial is not defined for negative numbers.");
+            System.out.println("util.Factorial is not defined for negative numbers.");
             return -1;
         } else {
             return recursiveFactorial(number);

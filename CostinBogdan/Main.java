@@ -1,16 +1,16 @@
 public class Main {
     public static void main(String[] args) {
-////         Factorial
-//        Factorial factorial = new Factorial();
+////         util.Factorial
+//        util.Factorial factorial = new util.Factorial();
 //        System.out.println(factorial.calculate());
-////         Prime
-//        Prime prime = new Prime();
+////         util.Prime
+//        util.Prime prime = new util.Prime();
 //        System.out.println(prime.check());
-////        Fibonacci
-//        Fibonacci fibonacci = new Fibonacci();
+////        util.Fibonacci
+//        util.Fibonacci fibonacci = new util.Fibonacci();
 //        System.out.println(fibonacci.check());
 ////        CheckPalindrome
-//        Palindrome palindrome = new Palindrome();
-//        System.out.println(palindrome.check());
+        util.Palindrome palindrome = new util.Palindrome();
+        System.out.println(palindrome.check());
     }
 }
