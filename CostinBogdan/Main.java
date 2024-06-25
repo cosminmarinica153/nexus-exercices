@@ -1,3 +1,5 @@
+import util.Anagram;
+
 public class Main {
     public static void main(String[] args) {
 ////         util.Factorial
@@ -10,7 +12,10 @@ public class Main {
 //        util.Fibonacci fibonacci = new util.Fibonacci();
 //        System.out.println(fibonacci.check());
 ////        CheckPalindrome
-        util.Palindrome palindrome = new util.Palindrome();
-        System.out.println(palindrome.check());
+//        util.Palindrome palindrome = new util.Palindrome();
+//        System.out.println(palindrome.check());
+////        Check Anagram
+//        util.Anagram anagram = new util.Anagram();
+//        System.out.println(anagram.check());
     }
 }
