@@ -1,5 +1,3 @@
-import util.Anagram;
-
 public class Main {
     public static void main(String[] args) {
 ////         util.Factorial
@@ -17,5 +15,24 @@ public class Main {
 ////        Check Anagram
 //        util.Anagram anagram = new util.Anagram();
 //        System.out.println(anagram.check());
+////        Check Average
+//        util.Average average = new util.Average();
+//        System.out.println(average.check());
+////        Reverse String
+//        util.Str str = new util.Str();
+//        System.out.println(str.reverse());
+////        Biggest from array
+//        util.Biggest biggest = new util.Biggest();
+//        System.out.println(biggest.find());
+////        Smallest from array
+//        util.Smallest smallest = new util.Smallest();
+//        System.out.println(smallest.find());
+////        Sum of number's digits && If number is palindrome
+//        util.Num digits = new util.Num();
+//        System.out.println(digits.sum());
+//        System.out.println(digits.palindrome());
+////        Calculate distance between 2 points
+//        util.Distance distance = new util.Distance();
+//        System.out.println(distance.calculate());
     }
 }
