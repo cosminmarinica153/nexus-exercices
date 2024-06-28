@@ -1,38 +1,36 @@
 package CardGames;
 
+import CardGames.utils.Card;
+import CardGames.utils.Deck;
+import CardGames.utils.Player;
+
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class WarCardGame {
     // Cards
-    private final ArrayList<Card> deck;
     private final ArrayList<Card> cardsOnTable;
+    private final ArrayList<Card> deck;
+
 
     // Players
     private final Player player;
     private final Player ai;
 
     public WarCardGame() {
-        this.deck = new ArrayList<>();
+        Deck deckObj = new Deck(2, 14);
+        this.deck = deckObj.getDeck();
+
         this.cardsOnTable = new ArrayList<>();
 
-        initializeDeck();
-        shuffleDeck();
-
-        this.player = new Player("CardGames.Player", new ArrayList<>(this.deck.subList(0, this.deck.size() / 2)));
-        this.ai = new Player("Computer", new ArrayList<>(this.deck.subList(this.deck.size() / 2, this.deck.size())));
+        this.player = new Player(
+                "Player",
+                new ArrayList<>(this.deck.subList(0, this.deck.size() / 2))
+        );
+        this.ai = new Player(
+                "Computer",
+                new ArrayList<>(this.deck.subList(this.deck.size() / 2, this.deck.size()))
+        );
     }
-
-    private void initializeDeck() {
-        String[] suits = {"♥️", "♠️", "♦️", "♣️"};
-        for (String suit : suits) {
-            for (int i = 2; i <= 14; i++) {
-                this.deck.add(new Card(i, suit));
-            }
-        }
-    }
-
-    private void shuffleDeck() { Collections.shuffle(this.deck); }
 
     private void pickUp(Player player) {
         player.addCards(this.cardsOnTable);
@@ -46,9 +44,9 @@ public class WarCardGame {
         // If a player cannot continue the war, they lose
         if (player.cards().size() < 4 || ai.cards().size() < 4) {
             if (player.cards().size() < 4) {
-                System.out.println("CardGames.Player does not have enough cards for war. Computer wins!");
+                System.out.println("Player does not have enough cards for war. Computer wins!");
             } else {
-                System.out.println("Computer does not have enough cards for war. CardGames.Player wins!");
+                System.out.println("Computer does not have enough cards for war. Player wins!");
             }
         }
 
@@ -101,41 +99,7 @@ public class WarCardGame {
         if (this.player.cards().isEmpty()) {
             System.out.println("Computer wins!");
         } else if (this.ai.cards().isEmpty()) {
-            System.out.println("CardGames.Player wins");
+            System.out.println("Player wins");
         }
-    }
-}
-
-class Card {
-    private final int value; // 2 - 14
-    private final String suit; // Trefla, Inima etc
-
-    public Card(int value, String suit) {
-        this.value = value;
-        this.suit = suit;
-    }
-
-    public int getValue() { return this.value; }
-
-    public String toString() { return this.value + " " + this.suit; }
-}
-
-record Player(String type, ArrayList<Card> cards) {
-
-    public void addCards(ArrayList<Card> cards) {
-        this.cards.addAll(cards);
-    }
-
-    public Card putCardOnTable() {
-        if (this.cards.isEmpty())
-            return null;
-        Card currCard = this.cards.getFirst();
-        System.out.println(this.type + " puts down: " + currCard);
-        this.cards.removeFirst();
-        return currCard;
-    }
-
-    public boolean hasCards() {
-        return !this.cards.isEmpty();
     }
 }
