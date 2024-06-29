@@ -5,95 +5,91 @@ import CardGames.utils.Deck;
 import CardGames.utils.Player;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class BlackJack {
-    //  Cards
-    private final ArrayList<Card> playerCards;
-    private final ArrayList<Card> dealerCards;
-
-    // Totals
-    private int playerTotal;
-    private int dealerTotal;
-    private int dealerDisplayTotal;
-
-    // Players
+    // Players (4)
+    private final Player human;
     private final Player dealer;
-    private final Player player;
+    private final Player aiPlayer1;
+    private final Player aiPlayer2;
+    private Player currPlayer;
 
-    // Init
+    private final ArrayList<Player> players;
+
+    // Cards
+    private Deck deck;
+    private ArrayList<Card> cards;
+
     public BlackJack() {
-        //  Cards
-        Deck deck = new Deck(1, 11);
-        ArrayList<Card> cards = deck.getDeck();
+        // Initialize the cards
+        deck = new Deck(2, 14);
+        ArrayList<Card> emptyHand = new ArrayList<>();
+        cards = new ArrayList<>(deck.getDeck());
+        // Initialize the Players
+        this.human = new Player("Player", emptyHand);
+        this.dealer = new Player("Dealer", emptyHand);
+        this.aiPlayer1 = new Player("Ai", emptyHand);
+        this.aiPlayer2 = new Player("Ai", emptyHand);
 
-        this.dealerCards = new ArrayList<>();
-        this.playerCards = new ArrayList<>();
+        players = new ArrayList<>();
 
-        this.dealer = new Player("Dealer", dealerCards);
-        this.player = new Player("Player", playerCards);
+        players.add(dealer);
+        players.add(human);
+        players.add(aiPlayer1);
+        players.add(aiPlayer2);
 
-        deal(cards);
+        play();
     }
 
-    private void deal(ArrayList<Card> cards) {
-        for (int i = 0; i < 2; i++) {
-            this.dealer.addCard(cards.getFirst());
-            cards.remove(cards.getFirst());
-
-            this.player.addCard(cards.getFirst());
-            cards.remove(cards.getFirst());
+    public void play() {
+        for(int i = 0; i < 2; i ++) {
+            for(Player player : players) {
+                hit(player);
+            }
         }
-
-        for (Card playerCard : playerCards) {
-            this.playerTotal = this.playerTotal + playerCard.getValue();
+        while (!this.players.isEmpty()){
+            nextPlayer();
         }
-
-        for (Card dealerCard : dealerCards) {
-            this.dealerTotal = this.dealerTotal + dealerCard.getValue();
-        }
-
-        for (int i = 0; i < dealerCards.size() - 1; i++) {
-            this.dealerDisplayTotal = this.dealerDisplayTotal + dealerCards.get(i).getValue();
-        }
-
-        displayCards(this.dealer);
-        displayCards(this.player);
-
     }
 
-    private void checkForAces(ArrayList<Card> cards, Player player) {
-        for (Card card : cards) {
-            if(player.getCardsValue() > 21) {
-                // Check if player has any card with the value of 11, if so remove it and replace it with a card with
-                // the value of 1, after that remove that card from the deck
-//                if (player.getCards().contains(Card()));
+    private void nextPlayer() {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Player> activePlayers = new ArrayList<>(players);
+        this.currPlayer = activePlayers.getFirst();
+        activePlayers.remove(activePlayers.getFirst());
+        if(!this.currPlayer.getType().equals("Player")) {
+            if(this.currPlayer.checkTotal() < 17) {
+                hit(this.currPlayer);
+            } else {
+                stand(this.currPlayer);
+            }
+        } else {
+            System.out.println("Make your choice: ");
+            System.out.println("(1) Hit");
+            System.out.println("(2) Stand");
+            int choice = scanner.nextInt();
+            if (choice == 1) {
+                hit(this.currPlayer);
+            } else if (choice == 2) {
+                stand(this.currPlayer);
+            } else {
+                System.out.println("Invalid choice! Bye");
             }
         }
     }
 
-    private void displayCards(Player player) {
-        boolean isDealer = Objects.equals(player.type(), "Dealer");
-        String totalOutput = Objects.equals(player.type(), "Dealer") ?
-                this.dealerDisplayTotal + " (" + this.dealerTotal + ")" :
-                String.valueOf(this.playerTotal);
-        System.out.println(player.type() + ": " + player.getCards(isDealer) + ". Total: " + totalOutput);
+    private void stand(Player playerToStand) {
+        this.players.remove(playerToStand);
     }
 
-
-    private void hit(ArrayList<Card> cards, Player playerToHit) {
-        playerToHit.addCard(cards.getFirst());
-        checkForAces(cards, playerToHit);
-        displayCards(playerToHit);
+    private void hit(Player playerToHit) {
+        if (!this.cards.isEmpty()) {
+            Card card = cards.remove(cards.size() - 1);
+            playerToHit.addCards(card);
+        }
+        if (this.cards.size() >= 2) {
+            System.out.println(playerToHit.getType() + ": " + playerToHit.getCards() + " (" + playerToHit.checkTotal() + ")");
+        }
     }
-
-    private int checkPlayerChoice() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("What is your choice?");
-        System.out.println("1. Hit");
-        System.out.println("2. Stand");
-        return scanner.nextInt() == 1 || scanner.nextInt() == 2 ? scanner.nextInt() : 0;
-    }
-
 }

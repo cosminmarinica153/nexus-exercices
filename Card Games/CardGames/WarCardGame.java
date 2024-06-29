@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class WarCardGame {
     // Cards
     private final ArrayList<Card> cardsOnTable;
-    private final ArrayList<Card> deck;
 
 
     // Players
@@ -18,32 +17,32 @@ public class WarCardGame {
 
     public WarCardGame() {
         Deck deckObj = new Deck(2, 14);
-        this.deck = deckObj.getDeck();
+        ArrayList<Card> deck = deckObj.getDeck();
 
         this.cardsOnTable = new ArrayList<>();
 
         this.player = new Player(
                 "Player",
-                new ArrayList<>(this.deck.subList(0, this.deck.size() / 2))
+                new ArrayList<>(deck.subList(0, deck.size() / 2))
         );
         this.ai = new Player(
                 "Computer",
-                new ArrayList<>(this.deck.subList(this.deck.size() / 2, this.deck.size()))
+                new ArrayList<>(deck.subList(deck.size() / 2, deck.size()))
         );
     }
 
     private void pickUp(Player player) {
         player.addCards(this.cardsOnTable);
         this.cardsOnTable.clear();
-        System.out.println(player.type() + " picks up!");
+        System.out.println(player.getType() + " picks up!");
     }
 
     private void handleWar(Player player, Player ai) {
         System.out.println("Let the war begin! ⚔️");
 
         // If a player cannot continue the war, they lose
-        if (player.cards().size() < 4 || ai.cards().size() < 4) {
-            if (player.cards().size() < 4) {
+        if (player.getCards().size() < 4 || ai.getCards().size() < 4) {
+            if (player.getCards().size() < 4) {
                 System.out.println("Player does not have enough cards for war. Computer wins!");
             } else {
                 System.out.println("Computer does not have enough cards for war. Player wins!");
@@ -96,9 +95,9 @@ public class WarCardGame {
             }
         }
 
-        if (this.player.cards().isEmpty()) {
+        if (this.player.getCards().isEmpty()) {
             System.out.println("Computer wins!");
-        } else if (this.ai.cards().isEmpty()) {
+        } else if (this.ai.getCards().isEmpty()) {
             System.out.println("Player wins");
         }
     }

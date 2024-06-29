@@ -9,7 +9,6 @@ public class Deck {
     public Deck(int min, int max) {
         this.deck = new ArrayList<>();
         initializeDeck(min, max);
-        shuffleDeck();
     }
 
     private void initializeDeck(int min, int max) {
@@ -19,9 +18,8 @@ public class Deck {
                 this.deck.add(new Card(i, suit));
             }
         }
+        Collections.shuffle(this.deck);
     }
-
-    private void shuffleDeck() { Collections.shuffle(this.deck); }
 
     public ArrayList<Card> getDeck() { return this.deck; }
 }

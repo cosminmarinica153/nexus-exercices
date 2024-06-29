@@ -13,7 +13,7 @@ public class Card {
         this.suit = suit;
     }
 
-    public Card (int value) {
+    public Card(int value) {
         this.value = value;
     }
 
